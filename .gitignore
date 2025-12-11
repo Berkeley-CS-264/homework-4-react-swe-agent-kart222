@@ -1,2 +1,27 @@
 __pycache__/
+*.pyc
+.pytest_cache/
+.hypothesis/
+
+# Output directories
 outputs/
+outputs_*/
+results/
+results_*/
+
+# Evaluation results
+*.my_evaluation_run.json
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+agent_logs/
