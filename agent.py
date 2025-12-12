@@ -47,18 +47,19 @@ class ReactAgent:
 ⚠️ CRITICAL: You MUST use replace_in_file to make actual code changes. Calling finish() without making changes is FAILURE.
 
 === CORE PRINCIPLE ===
-MAKE CHANGES FAST. Keep solutions SIMPLE. Don't over-explore or overthink. If you can't find the exact code after 3 searches, MAKE YOUR BEST GUESS and modify something reasonable. It's better to try a simple fix than to give up or create complex solutions.
+MAKE CHANGES FAST. Keep solutions SIMPLE. Search thoroughly to find the right code, but don't overthink the solution once you find it. It's better to try a simple fix than to create complex solutions.
 
-=== WORKFLOW (Complete in <15 steps) ===
+=== WORKFLOW (Complete in <20 steps) ===
 
 1. UNDERSTAND (1-2 steps)
    - Read the issue - what's broken?
    - Extract: class/function names, error messages, file hints
 
-2. LOCATE (2-4 steps MAX)
+2. LOCATE (2-5 steps)
    - search_in_files for the main class/function mentioned
-   - If no results, try ONE alternative search
-   - After 3-4 attempts, pick the most likely file and proceed
+   - If no results, try alternative searches
+   - Use find_file if you know the filename
+   - After 4-5 attempts, pick the most likely file and proceed
 
 3. EXAMINE (1-2 steps)
    - show_file on the most relevant file - read it COMPLETELY
@@ -69,7 +70,7 @@ MAKE CHANGES FAST. Keep solutions SIMPLE. Don't over-explore or overthink. If yo
    - Keep it simple - don't overthink
    - Example: "Bug exists because inspect.isfunction() returns False for properties"
 
-5. FIX (1 step)
+5. FIX (1-2 steps)
    - Use replace_in_file IMMEDIATELY once you understand root cause
    - Copy EXACT text from show_file (every space, tab, newline)
    - Make MINIMAL, SIMPLE change addressing ROOT CAUSE
@@ -95,16 +96,12 @@ MAKE CHANGES FAST. Keep solutions SIMPLE. Don't over-explore or overthink. If yo
 
 4. EXACT TEXT: Copy EXACT text from show_file (every space, tab, newline).
 
-
-
-
-
 === TOOLS (Use sparingly!) ===
 
 search_in_files(pattern, file_pattern="*") - Find code
   search_in_files("class User") → finds class definition
   search_in_files("test_user", "*.py") → finds test files
-  Limit: 2-3 searches max
+  Use as many searches as needed to find the right code
 
 show_file(file_path) - Read complete file
   show_file("src/user.py") → read entire file with line numbers
@@ -162,7 +159,7 @@ list_directory(path) - Explore structure
 ❌ Creating new files → Modify existing code
 ❌ Fixing symptoms → Explain WHY bug exists
 ❌ Not copying exact text → Copy EXACT text from show_file (whitespace matters!)
-❌ Searching 10+ times → Search 2-3 times then FIX
+❌ Searching 10+ times without finding anything → Use find_file or list_directory
 ❌ Not testing → Try python -m pytest, python3 -m pytest, ./runtests.py
 ❌ Calling finish without changes → You MUST use replace_in_file!
 
@@ -180,9 +177,10 @@ Issue: "InheritDocstrings metaclass doesn't work for properties"
 6. finish("Fixed InheritDocstrings to handle properties by adding isinstance(val, property) check")
 
 === YOUR GOAL ===
-Fix the bug in <15 steps. Keep it SIMPLE. Understand root cause, make minimal fix, test, finish.
+Fix the bug in <20 steps. Keep it SIMPLE. Understand root cause, make minimal fix, test, finish.
 
-⚠️ REMEMBER: Simple solutions are better than complex ones!"""
+⚠️ REMEMBER: Simple solutions are better than complex ones!
+"""
         self.system_message_id = self.add_message("system", system_prompt)
         self.user_message_id = self.add_message("user", "")
         # NOTE: mandatory finish function that terminates the agent
